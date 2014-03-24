@@ -27,6 +27,7 @@ def doSend(to, subject, templateName, content):
               "subject": subject,
               "html": message})
 
+@require_POST()
 def sendRawMessage(request):
   message = request.POST.message
   address = request.POST.address
