@@ -13,13 +13,28 @@ def sendMessage(request):
   address = request.POST.address
   subject = request.POST.subject
   content = request.POST.content # stuff to fill render template with
-  status = doSend().status_code
+  status = doSend(address, subject, template, content).status_code
   return HttpResponse(status=status)
-
 
 def doSend(to, subject, templateName, content):
     template = get_template(templateName)
     message = template.render(content)
+    return requests.post(
+        "https://api.mailgun.net/v2/messages",
+        auth=("api", AUTH_TOKEN),
+        data={"from": FROM,
+              "to": to,
+              "subject": subject,
+              "html": message})
+
+def sendRawMessage(request):
+  message = request.POST.message
+  address = request.POST.address
+  subject = request.POST.subject
+  status = doSend(address, subject, message).status_code
+  return HttpResponse(status=status)
+
+def doSendRaw(to, subject, message):
     return requests.post(
         "https://api.mailgun.net/v2/messages",
         auth=("api", AUTH_TOKEN),
