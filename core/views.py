@@ -14,21 +14,21 @@ def index(request):
 
 @require_POST
 @csrf_exempt
-def sendTest(request):
+def send(request):
+  fromEmail = 'pitt.human.genetics@gmail.com'
+
   defaultSubject = 'Hello'
   defaultData = {}
-  defaultTo = []
+  defaultTo = [fromEmail]
 
   postData = json.loads(request.body)
 
-  subject  = postData.get('subject', defaultSubject)
-  data  = postData.get('data', defaultData)
+  subject = postData.get('subject', defaultSubject)
+  data = postData.get('data', defaultData)
   toList = postData.get('to', defaultTo)
   templateName = postData.get('template')+'.html'
   
-  fromEmail = 'pitt.human.genetics@gmail.com'
   text_content = ""
-
   html_content = render_to_string(templateName, data)
   
   email = EmailMultiAlternatives(subject, text_content, fromEmail, toList)
@@ -36,8 +36,6 @@ def sendTest(request):
   
   if email.send(fail_silently=False) == 1:
     status = 200 #ok
-    print("message sent")
   else:
     status = 400 #error
-    print("message not sent")
   return HttpResponse(status=status)
