@@ -3,6 +3,7 @@ from django.conf.urls import patterns, url
 from core import views
 
 urlpatterns = patterns('',
-    url(r'^send$', views.sendMessage, name='send'),
-    url(r'^sendRaw$', views.sendRawMessage, name='sendRaw'),
+    # url(r'^send$', views.sendMessage, name='send'),
+    url(r'^$', views.index, name='index'),
+    url(r'^test$', views.sendTest, name='sendTest'),
 )
