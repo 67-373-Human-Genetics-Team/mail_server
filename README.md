@@ -1,6 +1,7 @@
-#mailer
-
-####example JSON post data (send to /send)
+#support
+## mailer
+####sending a message (JSON post data to /send)
+request:
 
 	{
 	  "subject": "hi there",
@@ -12,3 +13,40 @@
     	"person@example.com"
   	  ]
 	}
+	
+response: HTTP status
+	
+	
+## support data
+#### get list of papers (JSON post data to /papers)
+request:
+
+	{"name": "Bob Smith"}
+response: 
+
+	[
+		{
+		  "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+		  "journal": "Some Journal",
+		  "pub-date": "mm/dd/yyyy",
+		  "authors": [
+		  	{"name": "Firstname Lastname1",
+		  	 "organization": "division name, organization name, address"
+		  	},
+		  	{"name": "Firstname Lastname2",
+		  	 "organization": "division name, organization name, address"
+		  	},
+		  	{"name": "Firstname Lastname3",
+		  	 "organization": "division name, organization name, address"
+		  	},
+		  	{"name": "Firstname Lastname4",
+		  	 "organization": "division name, organization name, address"
+		  	},
+		  ],
+		  "data-source": "pmc",
+		  "id": "123456789"
+		},
+		{...},
+		{...},
+		{...}
+	]

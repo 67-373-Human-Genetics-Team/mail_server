@@ -7,10 +7,38 @@ from django.core.mail import EmailMessage
 from django.views.decorators.csrf import csrf_exempt
 from django.template.loader import get_template, render_to_string
 from django.core.mail import EmailMultiAlternatives
+from django.http import JsonResponse
 import json
 
 def index(request):
   return HttpResponse("hello!")
+
+# help:
+# http://www.ncbi.nlm.nih.gov/books/NBK25500/#chapter1.ESearch
+
+# search:
+# http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax=5000&term=dietrich+stephan
+# http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&retmax=5000&term=dietrich+stephan
+
+# download:
+# http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=3395264&rettype=xml&retmode=text
+
+# @require_POST
+# @csrf_exempt
+# def papers(request):
+#   name = request.POST.get('name')
+#   found = models.Paper.objects.filter(name=name)
+#   returnData = {}
+#   return JsonResponse(returnData)
+
+
+# @require_POST
+# @csrf_exempt
+# def patents(request):
+#   name = request.POST.get('name')
+#   found = models.Patent.objects.filter(name=name)
+#   returnData = {}
+#   return JsonResponse(returnData)
 
 @require_POST
 @csrf_exempt
