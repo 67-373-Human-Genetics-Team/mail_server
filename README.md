@@ -21,7 +21,7 @@ response: HTTP status
 #### get list of papers (JSON post data to /papers)
 request:
 
-	{"name": "Bob Smith"}
+	{"name": "Firstname Lastname1"}
 response: 
 
 	[

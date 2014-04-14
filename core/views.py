@@ -7,11 +7,17 @@ from django.core.mail import EmailMessage
 from django.views.decorators.csrf import csrf_exempt
 from django.template.loader import get_template, render_to_string
 from django.core.mail import EmailMultiAlternatives
-from django.http import JsonResponse
+# from django.http import JsonResponse
+import urllib2
 import json
+import xml.etree.ElementTree as ET
 
 def index(request):
-  return HttpResponse("hello!")
+  url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&retmax=5000&term=dietrich+stephan"
+  # url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=3395264&rettype=xml&retmode=text"
+  data = urllib2.urlopen(url).read()
+  root = ET.fromstring(data)
+  return HttpResponse(root[0][3].tag, content_type="text/plain")
 
 # help:
 # http://www.ncbi.nlm.nih.gov/books/NBK25500/#chapter1.ESearch
@@ -22,6 +28,15 @@ def index(request):
 
 # download:
 # http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=3395264&rettype=xml&retmode=text
+
+# returns a list of ids matching a search query
+def searchPapers(query, source):
+  return None
+
+# returns details about papers given their ids and source
+def fetchPapers(ids, source):
+  return None
+
 
 # @require_POST
 # @csrf_exempt
